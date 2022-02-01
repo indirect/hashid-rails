@@ -112,19 +112,26 @@ module Hashid
         Hashids.new(*hashid_configuration.to_args)
       end
 
+      def hashid_prefix
+        @hashid_prefix ||= name.gsub(/[a-z]/, "").downcase
+      end
+
       def hashid_encode(id)
         return nil if id.nil?
 
         if hashid_configuration.sign_hashids
-          hashids.encode(HASHID_TOKEN, id)
+          args = [HASHID_TOKEN, id]
         else
-          hashids.encode(id)
+          args = [id]
         end
+
+        [hashid_prefix, hashids.encode(*args)].join("_")
       end
 
       def hashid_decode(id, fallback:)
         fallback_value = fallback ? id : nil
-        decoded_hashid = hashids.decode(id.to_s)
+        value = id.to_s.gsub(/[a-z]+_/, "")
+        decoded_hashid = hashids.decode(value)
 
         if hashid_configuration.sign_hashids
           valid_hashid?(decoded_hashid) ? decoded_hashid.last : fallback_value

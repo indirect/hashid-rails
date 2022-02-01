@@ -13,7 +13,7 @@ describe Hashid::Rails do
   describe "#hashid" do
     it "returns model ID encoded as hashid" do
       model = FakeModel.new(id: 100_117)
-      expect(model.hashid).to eq("JyiQGy5")
+      expect(model.hashid).to eq("fm_JyiQGy5")
     end
   end
 
@@ -101,21 +101,21 @@ describe Hashid::Rails do
     context "when single id" do
       it "returns hashid" do
         encoded_id = FakeModel.encode_id(100_117)
-        expect(encoded_id).to eq("JyiQGy5")
+        expect(encoded_id).to eq("fm_JyiQGy5")
       end
     end
 
     context "when array with a single id" do
       it "returns an array with single hashid" do
         encoded_ids = FakeModel.encode_id([1])
-        expect(encoded_ids).to eq(["NPdiEN"])
+        expect(encoded_ids).to eq(["fm_NPdiEN"])
       end
     end
 
     context "when array with many ids" do
       it "returns an array of hashids" do
         encoded_ids = FakeModel.encode_id([1, 2, 3])
-        expect(encoded_ids).to eq(%w[NPdiEN NwniBe zKwimz])
+        expect(encoded_ids).to eq(%w[fm_NPdiEN fm_NwniBe fm_zKwimz])
       end
     end
 
@@ -126,7 +126,7 @@ describe Hashid::Rails do
 
       it "returns unsigned hashid" do
         encoded_id = FakeModel.encode_id(100_117)
-        expect(encoded_id).to eq("z3m059")
+        expect(encoded_id).to eq("fm_z3m059")
       end
     end
   end
