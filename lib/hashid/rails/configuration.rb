@@ -15,8 +15,8 @@ module Hashid
         @salt = ""
         @pepper = ""
         @min_hash_length = 6
-        @alphabet = "abcdefghijklmnopqrstuvwxyz" \
-                    "ABCDEFGHIJKLMNOPQRSTUVWXYZ" \
+        @alphabet = "abcdefghjkmnpqrstvwxyz" \
+                    "ABCDEFGHJKMNPQRSTVWXYZ" \
                     "1234567890"
         @override_find = true
         @override_to_param = true
