@@ -13,7 +13,7 @@ describe Hashid::Rails do
   describe "#hashid" do
     it "returns model ID encoded as hashid" do
       model = FakeModel.new(id: 100_117)
-      expect(model.hashid).to eq("fm_JyiQGy5")
+      expect(model.hashid).to eq("fm_6DACZgkm")
     end
   end
 
@@ -101,21 +101,21 @@ describe Hashid::Rails do
     context "when single id" do
       it "returns hashid" do
         encoded_id = FakeModel.encode_id(100_117)
-        expect(encoded_id).to eq("fm_JyiQGy5")
+        expect(encoded_id).to eq("fm_6DACZgkm")
       end
     end
 
     context "when array with a single id" do
       it "returns an array with single hashid" do
         encoded_ids = FakeModel.encode_id([1])
-        expect(encoded_ids).to eq(["fm_NPdiEN"])
+        expect(encoded_ids).to eq(["fm_QrJNCg"])
       end
     end
 
     context "when array with many ids" do
       it "returns an array of hashids" do
         encoded_ids = FakeModel.encode_id([1, 2, 3])
-        expect(encoded_ids).to eq(%w[fm_NPdiEN fm_NwniBe fm_zKwimz])
+        expect(encoded_ids).to eq(%w[fm_QrJNCg fm_xBnmC0 fm_4ge9Cp])
       end
     end
 
@@ -126,7 +126,7 @@ describe Hashid::Rails do
 
       it "returns unsigned hashid" do
         encoded_id = FakeModel.encode_id(100_117)
-        expect(encoded_id).to eq("fm_z3m059")
+        expect(encoded_id).to eq("fm_xE3yYn")
       end
     end
   end
@@ -134,7 +134,7 @@ describe Hashid::Rails do
   describe ".decode_id" do
     context "when single param" do
       it "returns decoded hashid" do
-        decoded_id = FakeModel.decode_id("JyiQGy5")
+        decoded_id = FakeModel.decode_id("fm_6DACZgkm")
         expect(decoded_id).to eq(100_117)
       end
 
@@ -151,7 +151,7 @@ describe Hashid::Rails do
 
     context "when an array" do
       it "returns array with decoded hashid" do
-        decoded_ids = FakeModel.decode_id(["NPdiEN"])
+        decoded_ids = FakeModel.decode_id(["fm_QrJNCg"])
         expect(decoded_ids).to eq([1])
       end
 
@@ -168,7 +168,7 @@ describe Hashid::Rails do
 
     context "when array with many hashid" do
       it "returns array of decoded hashids" do
-        decoded_ids = FakeModel.decode_id(%w[NPdiEN NwniBe zKwimz])
+        decoded_ids = FakeModel.decode_id(%w[fm_QrJNCg fm_xBnmC0 fm_4ge9Cp])
         expect(decoded_ids).to eq([1, 2, 3])
       end
 
@@ -189,7 +189,7 @@ describe Hashid::Rails do
       end
 
       it "returns decoded unsigned hashid" do
-        decoded_id = FakeModel.decode_id("z3m059")
+        decoded_id = FakeModel.decode_id("fm_xE3yYn")
         expect(decoded_id).to eq(100_117)
       end
     end
@@ -408,7 +408,7 @@ describe Hashid::Rails do
         expect(config.salt).to eq("")
         expect(config.min_hash_length).to eq(6)
         expect(config.alphabet).to eq(
-          "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+          "abcdefghjkmnpqrstvwxyzABCDEFGHJKMNPQRSTVWXYZ1234567890"
         )
         expect(config.override_find).to eq(true)
         expect(config.sign_hashids).to eq(true)
@@ -439,7 +439,7 @@ describe Hashid::Rails do
         expect(config.pepper).to eq(FakeModel.table_name)
         expect(config.min_hash_length).to eq(6)
         expect(config.alphabet).to eq(
-          "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+          "abcdefghjkmnpqrstvwxyzABCDEFGHJKMNPQRSTVWXYZ1234567890"
         )
         expect(config.override_find).to eq(true)
         expect(config.sign_hashids).to eq(true)
@@ -474,7 +474,7 @@ describe Hashid::Rails do
         expect(config.pepper).to eq("")
         expect(config.min_hash_length).to eq(6)
         expect(config.alphabet).to eq(
-          "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+          "abcdefghjkmnpqrstvwxyzABCDEFGHJKMNPQRSTVWXYZ1234567890"
         )
         expect(config.override_find).to eq(true)
         expect(config.sign_hashids).to eq(true)
