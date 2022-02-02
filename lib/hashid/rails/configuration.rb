@@ -9,7 +9,8 @@ module Hashid
                     :alphabet,
                     :override_find,
                     :override_to_param,
-                    :sign_hashids
+                    :sign_hashids,
+                    :test_mode
 
       def initialize
         @salt = ""
@@ -21,6 +22,7 @@ module Hashid
         @override_find = true
         @override_to_param = true
         @sign_hashids = true
+        @test_mode = false
       end
 
       def to_args

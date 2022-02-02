@@ -504,4 +504,22 @@ describe Hashid::Rails do
       expect(Hashid::Rails.configuration.salt).to eq ""
     end
   end
+
+  describe "test mode" do
+    before do
+      Hashid::Rails.configure do |config|
+        config.test_mode = true
+      end
+    end
+
+    it "doesn't encode ids" do
+      model = FakeModel.new(id: 100_117)
+      expect(model.hashid).to eq("fm_100117")
+    end
+
+    it "doesn't decode ids" do
+      decoded_id = FakeModel.decode_id("fm_100117")
+      expect(decoded_id).to eq(100_117)
+    end
+  end
 end

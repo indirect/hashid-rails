@@ -125,14 +125,19 @@ module Hashid
           args = [id]
         end
 
-        [hashid_prefix, hashids.encode(*args)].join("_")
+        if hashid_configuration.test_mode
+          [hashid_prefix, id].join("_")
+        else
+          [hashid_prefix, hashids.encode(*args)].join("_")
+        end
       end
 
       def hashid_decode(id, fallback:)
         fallback_value = fallback ? id : nil
         value = id.to_s.gsub(/[a-z]+_/, "")
-        decoded_hashid = hashids.decode(value)
+        return value.to_i if hashid_configuration.test_mode
 
+        decoded_hashid = hashids.decode(value)
         if hashid_configuration.sign_hashids
           valid_hashid?(decoded_hashid) ? decoded_hashid.last : fallback_value
         else
